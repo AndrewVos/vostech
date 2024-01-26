@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { CompanyName } from "./config";
-import classNames from "classnames";
 
 // language icons come from here
 // https://icones.netlify.app/collection/mdi?s=
