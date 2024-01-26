@@ -71,7 +71,8 @@ const Container = ({ children }: { children: React.ReactNode }) => {
   )
 }
 
-const SectionHeader = ({ id, title }: { id: string, title: string }) => {
+
+const SectionHeader = ({ id, title }: { id?: string, title: string }) => {
   return (<div id={id} className="text-4xl lg:text-6xl font-bold mb-12">{title}</div>)
 }
 
