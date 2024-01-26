@@ -1,11 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { CompanyName } from "./config";
+import { CompanyName, CompanyEmail } from "./config";
 
 // language icons come from here
 // https://icones.netlify.app/collection/mdi?s=
-
 
 const Technologies = [
   {
@@ -66,16 +65,20 @@ const Team = [
 
 const Container = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto px-4">
       {children}
     </div>
   )
 }
 
+const SectionHeader = ({ id, title }: { id: string, title: string }) => {
+  return (<div id={id} className="text-4xl lg:text-6xl font-bold mb-12">{title}</div>)
+}
+
 export default function Home() {
   return (
     <main className="min-h-screen">
-      <div className="space-y-48 mb-24">
+      <div className="space-y-24 md:space-y-48 mb-24">
         <Container>
           <div className="header flex items-center pt-12">
             <h1 className="text-4xl font-bold">
@@ -84,11 +87,16 @@ export default function Home() {
               </Link>
             </h1>
             <div className="grow"></div>
-            <div className="space-x-3">
-              <button className="text-gray-900 font-bold  px-2 py-1">Team</button>
-              <button className="text-gray-900 font-bold  px-2 py-1">Clients</button>
-              <button className="bg-gray-900 text-white font-bold rounded px-2 py-1">Contact</button>
-
+            <div className="sm:flex">
+              <div>
+                <Link href="#our-team" className="text-gray-900 font-bold px-2 py-1 hover:underline">Team</Link>
+              </div>
+              <div>
+                <Link href="#our-clients" className="text-gray-900 font-bold px-2 py-1 hover:underline">Clients</Link>
+              </div>
+              <div>
+                <Link href="#contact" className="text-gray-900 font-bold px-2 py-1 hover:underline">Contact</Link>
+              </div>
             </div>
           </div>
         </Container>
@@ -96,10 +104,10 @@ export default function Home() {
         <div className="bg-gray-100">
           <Container>
             <div className="space-y-5 py-24">
-              <div className="text-8xl">
+              <div className="text-4xl md:text-6xl lg:text-8xl">
                 Your <span className="font-bold">Vision</span>
               </div>
-              <div className="text-8xl">
+              <div className="text-4xl md:text-6xl lg:text-8xl">
                 Our <span className="font-bold">Expertise</span>
               </div>
             </div>
@@ -107,27 +115,26 @@ export default function Home() {
         </div>
 
         <Container>
-          <div className="text-6xl font-bold mb-12">We do</div>
+          <SectionHeader title="We do" />
 
           <div className="space-y-12">
             <div className="space-y-3 ml-8">
-              <div className="text-6xl"><span className="font-bold">&gt;</span> Product Engineering</div>
+              <div className="text-4xl lg:text-6xl"><span className="font-bold">&gt;</span> Product Engineering</div>
               <div className="prose lg:prose-xl">We build your product from the ground up, from ideation to launch, using the latest technologies and best practices.</div>
             </div>
             <div className="space-y-3 ml-8">
-              <div className="text-6xl"><span className="font-bold">&gt;</span> Project Management</div>
+              <div className="text-4xl lg:text-6xl"><span className="font-bold">&gt;</span> Project Management</div>
               <div className="prose lg:prose-xl">Our teams come with a wealth of experience in managing projects of all sizes, ensuring seamless delivery and client satisfaction.</div>
             </div>
             <div className="space-y-3 ml-8">
-              <div className="text-6xl"><span className="font-bold">&gt;</span> Product Maintenance</div>
+              <div className="text-4xl lg:text-6xl"><span className="font-bold">&gt;</span> Product Maintenance</div>
               <div className="prose lg:prose-xl">We continuously improve your product, removing bugs and adding features along the way.</div>
             </div>
           </div>
         </Container>
 
         <Container>
-          <div className="text-6xl font-bold mb-12">Our Tech Stack</div>
-
+          <SectionHeader title="Our Tech Stack" />
           <div className="flex gap-8 flex-wrap">
             {Technologies.map((tech) => (
               <div key={tech.name} className="flex items-center gap-5 rounded-full bg-gray-100">
@@ -141,8 +148,33 @@ export default function Home() {
         </Container>
 
         <Container>
-          <div className="text-6xl font-bold mb-12">Clients</div>
+          <div>
+            <SectionHeader id="our-team" title="Our Team" />
+            <div className="space-y-12">
+              {Team.map((member) => (
+                <div key={member.name} className="flex flex-col md:flex-row px-8 py-8 gap-8">
+                  <div className="flex items-center justify-center">
+                    <Image className="rounded-full" src={member.image} alt="" width={200} height={200} />
+                  </div>
+                  <div className="text-center md:text-left" >
+                    <div className="text-lg font-medium text-sky-500">
+                      {member.name}
+                    </div>
+                    <div className="text-lg font-medium text-slate-700 mb-5">
+                      {member.role}
+                    </div>
+                    <div className="prose lg:prose-xl">
+                      {member.bio}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Container>
 
+        <Container>
+          <SectionHeader id="our-clients" title="Our Clients" />
           <div className="flex flex-wrap">
             {Clients.map((client) => (
               <div key={client.name} className="logo w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-3">
@@ -156,48 +188,26 @@ export default function Home() {
 
         <Container>
           <div>
-            <div className="text-6xl font-bold mb-12">Our Team</div>
-            <div className="space-y-12">
-              {Team.map((member) => (
-                <div key={member.name}>
-                  <div className="flex rounded-xl px-8 py-8 gap-8">
-                    <div className="flex items-center">
-                      <Image className="rounded-full " src={member.image} alt="" width={200} height={200} />
-                    </div>
-                    <div className="">
-                      <div className="text-lg font-medium text-sky-500">
-                        {member.name}
-                      </div>
-                      <div className="text-lg font-medium text-slate-700 mb-5">
-                        {member.role}
-                      </div>
-                      <div className="prose lg:prose-xl">
-                        {member.bio}
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-              ))}
-            </div>
+            <SectionHeader title="Our Practices" />
+            <div className="text-4xl lg:text-6xl font-bold mb-12"></div>
+            <ul className="list-disc ml-12">
+              <li className="prose lg:prose-xl">Agile</li>
+              <li className="prose lg:prose-xl">Continuous Delivery</li>
+              <li className="prose lg:prose-xl">Continuous Integration</li>
+              <li className="prose lg:prose-xl">Test-Driven Development</li>
+              <li className="prose lg:prose-xl">Automated Testing</li>
+              <li className="prose lg:prose-xl">Code Review</li>
+            </ul>
           </div>
         </Container>
 
         <Container>
-          <div>
-            <div className="text-6xl font-bold mb-12">Our Practices</div>
-            <div className="">
-              <ul className="list-disc ml-12">
-                <li className="prose lg:prose-xl">Agile</li>
-                <li className="prose lg:prose-xl">Continuous Delivery</li>
-                <li className="prose lg:prose-xl">Continuous Integration</li>
-                <li className="prose lg:prose-xl">Test-Driven Development</li>
-                <li className="prose lg:prose-xl">Automated Testing</li>
-                <li className="prose lg:prose-xl">Code Review</li>
-              </ul>
-            </div>
+          <SectionHeader id="contact" title="Contact Us" />
+          <div className="text-xl font-medium ml-12">
+            Email us at <Link href={`mailto:{CompanyEmail}`} className="font-bold">{CompanyEmail}</Link>
           </div>
         </Container>
+
       </div>
     </main >
   );
